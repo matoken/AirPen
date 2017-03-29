@@ -1,0 +1,44 @@
+interface=ath~i~
+ctrl_interface=/var/run/hostapd
+ctrl_interface_group=0
+dtim_period=2
+max_num_sta=255
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wme_enabled=0
+ieee8021x=0
+eapol_version=2
+eapol_key_index_workaround=0
+eap_server=1
+
+#
+# WPA-PSK configuration section
+#
+
+wpa=3
+~hPSK_KEY#~wpa_psk=~~PSK_KEY#~
+~hPSK_KEY#!~wpa_passphrase=~~PSK_KEY#~
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=~~AP_CYPHER#~
+wpa_group_rekey=~!AP_WPA_GROUP_REKEY#~
+wpa_gmk_rekey=~!AP_WPA_GMK_REKEY#~
+wpa_strict_rekey=1
+
+#
+# WPS configuration section
+#
+
+wps_state=2
+config_methods=push_button display virtual_display virtual_push_button physical_push_button
+manufacturer=PQI
+model_name=AirBank
+model_number=1.0
+serial_number=~~AP_MACADDR~
+manufacturer_url=http://us.pqigroup.com/
+friendly_name=AirBank_WPS
+model_description=Memory in the Air
+model_url=http://us.pqigroup.com/news_in.aspx?mnuid=1266&modid=111&nid=166
+ap_pin=~~AP_MACADDR~
+device_type=6-0050F204-1
+device_name=AirBank

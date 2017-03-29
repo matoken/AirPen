@@ -1,0 +1,28 @@
+#!/bin/sh
+
+routingRule()
+{
+	iptables -F
+	iptables -X
+	iptables -Z
+	iptables -t nat -F
+	iptables -t nat -X
+	iptables -t nat -Z
+	iptables -P INPUT ACCEPT
+	iptables -P OUTPUT ACCEPT
+	iptables -P FORWARD ACCEPT
+	iptables -A INPUT -i lo -j ACCEPT
+	iptables -A OUTPUT -o lo -j ACCEPT
+	iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+	iptables -t nat -A POSTROUTING -o ath1 -j MASQUERADE
+}
+
+/sbin/ifconfig $interface $ip netmask $subnet up
+route add default gw $router dev $interface 
+
+if [ "$router" != "" ]; then
+	echo Connected > /tmp/staState
+	routingRule
+else
+	echo "Wait add default gateway"
+fi

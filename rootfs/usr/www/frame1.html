@@ -1,0 +1,233 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="content-language" content="zh-tw">
+<meta HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<title>PQI Air Pen</title>
+<script>
+<!--
+String.prototype.trim=trim;    //傳回去除前後空白的值
+var yyyy=0;
+var objimg = obj_content.getElementsByTagName('myconfigure'); 
+
+if(objimg){ 
+    for(var i=0; i < objimg.length ; i++){ 
+        objimg[i].onclick = function() {abc();}; 
+    } 
+} 
+
+
+function trim() {
+    return this.replace(/^\s+|\s+$/g, "");
+} 
+
+    var http_request = false;
+
+    function makeRequest() {  
+        var url='cgi-bin/cmd?cmd=LOGIN&ID=';
+        url=url.concat(''+parent.ID,'&PW=',parent.PW+'');
+        http_request = false;
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request = new XMLHttpRequest();
+            if (http_request.overrideMimeType) {
+                http_request.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+            try {
+                http_request = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
+        }
+
+        if (!http_request) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        http_request.onreadystatechange = alertContents;
+        http_request.open('GET', url, true);
+        http_request.setRequestHeader("If-Modified-Since","0");
+        http_request.send(null);
+
+    }
+
+    function alertContents() {
+        if (http_request.readyState == 4) {
+            if (http_request.status == 200) {
+                  if(http_request.responseText.trim() == "Login successfully"){   
+                                if (yyyy == 0)  {                          
+                                        window.top.parameter.location='page2.html';
+                                        }
+                                if (yyyy == 1)  { 
+                                        var url2='http://';
+                                             url2=url2.concat(''+top.location.host,':8080');                  
+                                        window.top.parameter.location=url2;
+                                        }
+                              }
+                  else{                              
+                                window.top.parameter.location='login.html';
+                             //if(parent.firstin)
+                                      //document.getElementById('msg').innerHTML=http_request.responseText.trim();
+                              //parent.firstin=1;
+                              }
+            } else {
+                //document.getElementById('msg').innerHTML=http_request.status;
+            }
+        }
+
+    }
+    
+    function getValue(varname)
+{
+  var url = window.location.href;
+  var qparts = url.split("?");
+  if (qparts.length == 0){/*alert("ohoh");*/return "";}
+  var query = qparts[1];
+  var vars = query.split("&");
+  var value = "";
+  for (i=0; i<vars.length; i++)
+  {
+    var parts = vars[i].split("=");
+    if (parts[0] == varname)
+    {
+      value = parts[1];
+      break;
+    }
+  }
+  value = unescape(value);
+  value.replace(/\+/g," ");
+  return value;
+}
+
+
+
+    function abc() {  
+    yyyy=0;
+    document.cookie = "";
+   // alert(typeof(getValue("msg")));
+    //document.getElementById('msg').innerHTML=getValue("msg");
+    makeRequest();
+}
+
+function oooo(){
+    yyyy=1;
+    makeRequest();
+}
+
+
+function login_check(){
+   //window.url("cgi-bin/kcard_photo.pl","f3");
+  // parent.f3.location.href="cgi-bin/kcard_photo.cgi";
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style>
+<!--
+
+.mainpart{
+	text-align:center;
+}
+#navigation {
+	width:200px;
+	font-family:Arial;
+	background-color:#990020;			/* §ïÅÜ­I´º¦â */
+	
+}
+#navigation ul {
+	list-style-type:none;				/* ¤£Åã¥Ü¶µ¥Ø²Å¸¹ */
+	margin:0px;
+	padding:0px;
+}
+#navigation li {
+	border-bottom:1px solid #ED9F9F;	/* ·s¼W¤U¹º½u */
+}
+#navigation li a{
+	display:block;						/* °Ï¶ôÅã¥Ü */
+	padding:5px 5px 5px 0.5em;
+	text-decoration:none;
+	border-left:12px solid #711515;		/* ¥ªÃäªº²Ê¬õÃä */
+	border-right:1px solid #711515;		/* ¥k°¼³±¼v */
+}
+#navigation li a:link, #navigation li a:visited{
+	background-color:#c11136;
+	color:#FFFFFF;
+}
+#navigation li a:hover{					/* ¹«¼Ð¸g¹L®É */
+	background-color:#990020;			/* §ïÅÜ­I´º¦â */
+	color:#ffff00;						/* §ïÅÜ¤å¦rÃC¦â */
+}
+#apDiv1 {
+	position:absolute;
+	width:175px;
+	height:40px;
+	z-index:1;
+	left: 11px;
+	top: 328px;
+}
+-->
+</style>
+</head>
+<body leftmargin="0" topmargin="0" onload="javascript:abc();">
+<table cellpadding="0" cellspacing="0" width="100%" height="100%" border="0">
+    <tr>
+		<td width="191" height="520" align="center" valign="bottom" background="images/AirBank2-02.jpg" bgcolor="#FF0000"><table width="190" border="0" cellspacing="0" cellpadding="1">
+		  <tr>
+		    <td width="188" height="22" align="center" valign="middle">&nbsp;</td>
+	      </tr>
+		  <tr>
+		    <td align="center" valign="middle"><img id="myconfigure" src="images/banner-up-configuration.gif" name="Image3" width="171" height="38" border="0" STYLE="cursor: pointer;" onclick="abc()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image3','','images/banner-down-congiguration.gif',1)"></td>
+	      </tr>
+		  <tr>
+		    <td height="30" align="center"><img src="images/banner-up-FileList.gif"   name="Image5" width="171" height="38" border="0"  onclick="oooo()" onMouseOut="MM_swapImgRestore()" STYLE="cursor: pointer;"  onMouseOver="MM_swapImage('Image5','','images/banner-down-FileList.gif',1)" >    
+		    
+		    </td>
+	      </tr>
+		  <tr>
+		    <td height="30" align="center">
+		      <table width="75%" border="0" cellspacing="0" cellpadding="0">
+		        <tr>
+		          <td height="50" align="left" valign="bottom"><h4><font color=white>V0.1.24</font></h4></td>
+	            </tr>
+            </table></td>
+	      </tr>
+		  <tr>
+		    <td height="100" align="center">&nbsp;</td>
+	      </tr>
+  </table></td>
+		<td bgcolor="#17151A">&nbsp;</td>		
+  </tr>
+	<tr>
+	  <td  bgcolor="#231816">&nbsp;</td>
+	  <td bgcolor="#16151A">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[backup]
+path = /tmp/www/ftp/sda1/backup
+hosts allow = *
+hosts deny = *
+list = true
+uid = root
+gid = root
+auth users = root
+secrets file = /etc/.scrt
+max connections = 1
+read only = false
+

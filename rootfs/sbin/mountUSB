@@ -1,0 +1,22 @@
+#!/bin/sh
+length1=`expr length $1`
+len1=`expr $length1 - 1`
+length2=`expr length $2`
+len2=`expr $length2 - 1`
+string1=`expr substr $1 1 $len1`
+string2=`expr substr $2 1 $len2`
+num=`expr substr $1 $length1 1`
+fdisk -l $string1 | grep EFI > /dev/null
+if [ `echo $?` -eq "0" ]; then
+    num=`expr $num - 1`
+fi
+
+
+if [ $num -ne "0" ]; then
+    string2=/tmp/www/ftp/sda$num
+    umount -f $string2
+    mkdir -p $string2
+    /bin/ntfs-3g $1 $string2 > /dev/null
+    /bin/mount -t vfat -o iocharset=utf8 $1 $string2 >  /dev/null
+    /bin/mount -t ext2 $1 $string2 >  /dev/null
+fi

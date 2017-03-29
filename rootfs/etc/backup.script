@@ -1,0 +1,29 @@
+#!/bin/sh
+
+routingRule()
+{
+	iptables -F
+	iptables -X
+	iptables -Z
+	iptables -t nat -F
+	iptables -t nat -X
+	iptables -t nat -Z
+}
+
+/sbin/ifconfig $interface $ip netmask $subnet up
+route add default gw $router dev $interface 
+
+if [ "$router" != "" ]; then
+	echo Connected > /tmp/staState
+	routingRule
+	if [ "$router" = "192.168.100.1" ]; then
+		if [ -f /tmp/rsync ]; then
+			echo "backup already started"
+		else
+#			touch /tmp/run_backup
+			killall -USR1 wdog
+		fi
+	fi
+else
+	echo "Wait add default gateway"
+fi

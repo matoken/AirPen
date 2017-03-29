@@ -1,0 +1,5 @@
+#!/bin/sh
+cfg -a COUNTRY_CODE=$QUERY_STRING
+cfg -c
+
+echo OK 

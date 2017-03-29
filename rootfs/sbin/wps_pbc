@@ -1,0 +1,38 @@
+#!/bin/sh
+
+if [ -f /tmp/stop_wps_scan ]; then
+	return 0
+fi
+
+wpa_cli scan
+
+#Detect pbc overlap
+OVERLAP=`wpa_cli scan_result | grep WPS-PBC | wc -l`
+if [ $OVERLAP -ne 1 ]; then
+	echo "Push button overlap detected!"
+	return 0
+fi
+
+#Check if server press push button
+WPS_INFO=`wpa_cli scan_result | grep WPS-PBC`
+
+#Handle security situation
+echo $WPS_INFO | grep WPA
+IS_WPA=$?
+if [ $IS_WPA -eq 0 ]; then
+	wpa_cli wps_pbc
+	touch /tmp/stop_wps_scan
+	return 0
+fi
+
+#Handle open mode
+BSSID=`wpa_cli scan_result | grep WPS-PBC | cut -f1`
+if [ "$BSSID" != "" ]; then
+	cp /etc/wpa_def.conf /tmp/wpa.conf
+	echo bssid=$BSSID >> /tmp/wpa.conf
+	echo key_mgmt=NONE >> /tmp/wpa.conf
+	echo } >> /tmp/wpa.conf
+	wpa_cli reconfigure
+	touch /tmp/stop_wps_scan
+fi
+return 0;

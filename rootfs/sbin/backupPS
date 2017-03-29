@@ -1,0 +1,22 @@
+#!/bin/sh
+
+backupRule()
+{
+	/bin/backup -avzP4 --modify-window=2 --timeout=120 --password-file=/etc/.scrt /tmp/www/ftp/sda1/ root@192.168.100.1::backup
+}
+ret=0
+count=0
+while [ "$count" -ne 5 ]; do
+	backupRule
+	ret=$?
+	if [ "$ret" -ne 0 ]; then
+		echo "backup result"$count"="$ret >> /tmp/abcd
+		count=$(($count+1))
+	else
+		count=5	
+	fi
+done
+echo 0 > /proc/gpio/gpio23_out
+rm /tmp/rsync
+killall -CONT rc
+exit 0

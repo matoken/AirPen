@@ -1,0 +1,4 @@
+#!/bin/sh
+cd /tmp && sync && sync
+cd /tmp/www/ftp ; sync && sync
+echo sync_ok

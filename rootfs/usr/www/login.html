@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<title>PQI Air Pen Login</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" language="javascript">
+
+var lang_tmp = "";
+
+String.prototype.trim=trim;    //傳回去除前後空白的值
+
+function trim() {
+    return this.replace(/^\s+|\s+$/g, "");
+} 
+
+    var http_request = false;
+
+    function makeRequest() {  
+    
+        var url='cgi-bin/cmd?cmd=LOGIN&ID=';
+        url=url.concat(''+document.getElementById('LID').value,'&PW=',document.getElementById('PWD').value+'');
+        //alert(url);
+        http_request = false;
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request = new XMLHttpRequest();
+            if (http_request.overrideMimeType) {
+                http_request.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+            try {
+                http_request = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    http_request = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
+        }
+
+        if (!http_request) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        http_request.onreadystatechange = alertContents;
+        http_request.open('GET', url, true);
+        http_request.setRequestHeader("If-Modified-Since","0");
+        http_request.send(null);
+
+    }
+
+    function alertContents() {
+        if (http_request.readyState == 4) {
+            if (http_request.status == 200) {
+                  if(http_request.responseText.trim() == "Login successfully"){
+                                parent.ID=document.getElementById('LID').value;
+                                parent.PW=document.getElementById('PWD').value;
+                                window.location='page2.html';
+                              }
+                  else{
+                             if(parent.firstin)
+                                 {
+                                    //document.getElementById('msg').innerHTML=http_request.responseText.trim();
+					switch(lang_tmp) {
+						
+						case 'DE':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="Ungültige ID";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="Ungültiges Passwort";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'ES':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="ID incorrecto";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="Contraseña incorrecta";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'FR':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="ID non valide";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="Mot de passe non valide";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'JP':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="ID が無効";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="パスワードが無効";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'KR':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="잘못된 ID";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="잘못된 비밀번호";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'PL':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="Nieprawidłowy identyfikator";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="Nieprawidłowe hasło";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'RU':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="Неверный ID";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="Неверный пароль";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'TR':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="Geçersiz Kimlik";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="Geçersiz şifre";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'CN':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="不正确的帐号";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="不正确的密码";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'TW':
+							if(http_request.responseText.trim() == "Invalid ID")
+				        			document.getElementById('msg').innerHTML="不正確的帳號";
+				        		else if(http_request.responseText.trim() == "Invalid password")
+				        			document.getElementById('msg').innerHTML="不正確的密碼";
+				        		else
+				        			document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+						case 'EN':
+						default:
+							document.getElementById('msg').innerHTML=http_request.responseText.trim();
+							break;
+
+					}
+                                  }
+                              parent.firstin=1;
+                              }
+            } else {
+                //document.getElementById('msg').innerHTML=http_request.status;
+            }
+        }
+
+    }
+    
+    function getValue(varname)
+{
+  var url = window.location.href;
+  var qparts = url.split("?");
+  if (qparts.length == 0){/*alert("ohoh");*/return "";}
+  var query = qparts[1];
+  var vars = query.split("&");
+  var value = "";
+  for (i=0; i<vars.length; i++)
+  {
+    var parts = vars[i].split("=");
+    if (parts[0] == varname)
+    {
+      value = parts[1];
+      break;
+    }
+  }
+  value = unescape(value);
+  value.replace(/\+/g," ");
+  return value;
+}
+
+
+    function abc() {  
+    lang_status();
+    document.cookie = "";
+   // alert(typeof(getValue("msg")));
+    //document.getElementById('msg').innerHTML=getValue("msg");
+    makeRequest();    
+}
+
+function makeRequest_lang(url) {
+
+        http_request_lang = false;
+
+        if (window.XMLHttpRequest) { // Mozilla, Safari,...
+            http_request_lang = new XMLHttpRequest();
+            if (http_request_lang.overrideMimeType) {
+                http_request_lang.overrideMimeType('text/xml');
+            }
+        } else if (window.ActiveXObject) { // IE
+            try {
+                http_request_lang = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    http_request_lang = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {}
+            }
+        }
+
+        if (!http_request_lang) {
+            alert('Giving up :( Cannot create an XMLHTTP instance');
+            return false;
+        }
+        
+        http_request_lang.open('GET', url, false);
+        http_request_lang.setRequestHeader("If-Modified-Since","0");
+        http_request_lang.send(null);
+
+    }
+
+        
+function lang_status() {
+        makeRequest_lang('cgi-bin/getcountry');
+        //document.getElementById('lang').innerHTML=http_request_lang.responseText.trim();
+        lang_tmp = http_request_lang.responseText.trim();
+        document.getElementById(http_request_lang.responseText.trim()).selected=true;
+	switch(lang_tmp){
+		case 'DE':
+			document.getElementById('Lang_select').innerHTML='Sprache';
+        		document.getElementById('Change_button').value='OK';        	
+        		document.getElementById('LoID1').innerHTML='Login-ID：';
+        		document.getElementById('LoPW1').innerHTML='Passwort：';
+        		document.getElementById('button').value='Abbrechen';
+        		document.getElementById('button_log').value='Login';
+			break;
+		case 'ES':
+			document.getElementById('Lang_select').innerHTML='Idioma';
+        		document.getElementById('Change_button').value='Aceptar';        	
+        		document.getElementById('LoID1').innerHTML='ID de inicio de sesión：';
+        		document.getElementById('LoPW1').innerHTML='Contraseña：';
+        		document.getElementById('button').value='Cancelar';
+        		document.getElementById('button_log').value='Iniciar sesión';
+			break;
+		case 'FR':
+			document.getElementById('Lang_select').innerHTML='Langue';
+        		document.getElementById('Change_button').value='OK';        	
+        		document.getElementById('LoID1').innerHTML='ID de connexion：';
+        		document.getElementById('LoPW1').innerHTML='Mot de passe：';
+        		document.getElementById('button').value='Annuler';
+        		document.getElementById('button_log').value='Connexion';
+			break;
+		case 'JP':
+			document.getElementById('Lang_select').innerHTML='言語';
+        		document.getElementById('Change_button').value='確認';        	
+        		document.getElementById('LoID1').innerHTML='ログインID：';
+        		document.getElementById('LoPW1').innerHTML='パスワード：';
+        		document.getElementById('button').value='取消';
+        		document.getElementById('button_log').value='ログイン';
+			break;
+		case 'KR':
+			document.getElementById('Lang_select').innerHTML='언어';
+        		document.getElementById('Change_button').value='확인';        	
+        		document.getElementById('LoID1').innerHTML='로그인 ID：';
+        		document.getElementById('LoPW1').innerHTML='비밀번호：';
+        		document.getElementById('button').value='취소';
+        		document.getElementById('button_log').value='로그인';
+			break;
+		case 'PL':
+			document.getElementById('Lang_select').innerHTML='Język';
+        		document.getElementById('Change_button').value='OK';        	
+        		document.getElementById('LoID1').innerHTML='Identyfikator logowania：';
+        		document.getElementById('LoPW1').innerHTML='Hasło：';
+        		document.getElementById('button').value='Anuluj';
+        		document.getElementById('button_log').value='Login';
+			break;
+		case 'RU':
+			document.getElementById('Lang_select').innerHTML='Язык';
+        		document.getElementById('Change_button').value='OK';        	
+        		document.getElementById('LoID1').innerHTML='Имя для входа：';
+        		document.getElementById('LoPW1').innerHTML='Пароль：';
+        		document.getElementById('button').value='Отмена';
+        		document.getElementById('button_log').value='Вход';
+			break;
+		case 'TR':
+			document.getElementById('Lang_select').innerHTML='Dil';
+        		document.getElementById('Change_button').value='Tamam';        	
+        		document.getElementById('LoID1').innerHTML='Oturum Açma Kimliği：';
+        		document.getElementById('LoPW1').innerHTML='Şifre：';
+        		document.getElementById('button').value='İptal';
+        		document.getElementById('button_log').value='Oturum Aç';
+			break;
+		case 'CN':
+			document.getElementById('Lang_select').innerHTML='语言选项';
+        		document.getElementById('Change_button').value='確認';        	
+        		document.getElementById('LoID1').innerHTML='帐号：';
+        		document.getElementById('LoPW1').innerHTML='密码：';
+        		document.getElementById('button').value='取消';
+        		document.getElementById('button_log').value='登入';
+			break;
+		case 'TW':
+			document.getElementById('Lang_select').innerHTML='語言選項';
+        		document.getElementById('Change_button').value='確認';        	
+        		document.getElementById('LoID1').innerHTML='帳號：';
+        		document.getElementById('LoPW1').innerHTML='密碼：';
+        		document.getElementById('button').value='取消';
+        		document.getElementById('button_log').value='登入';
+			break;
+		case 'EN':
+		default:
+			//document.getElementById('conf').innerHTML='Configuration Login:';
+			break;
+	}      
+}
+         
+function lang_change() {  
+    document.cookie = "";    
+    var url='cgi-bin/setcountry?';
+    url=url.concat(document.getElementById('new_Lang').value);
+    makeRequest_lang(url);
+    
+    window.location='login.html';
+}   
+
+
+</script>
+
+</head>
+
+<body onload="javascript:abc();">
+
+
+<table border="0" align="right" cellpadding="0" cellspacing="0" >
+      <tr>
+        <td align="left"><div id=Lang_select>Language</div></td>
+        <td align="left">
+        <form name="lang_form" align="right" onsubmit="lang_change();">
+<select name="new_Lang" id="new_Lang" align="left">
+<option id=EN value="EN">English</option>
+<option id=DE value="DE">Deutsch</option>
+<option id=ES value="ES">Español</option>
+<option id=FR value="FR">Français</option>
+<option id=JP value="JP">日本語</option>
+<option id=KR value="KR">한국의</option>
+<option id=PL value="PL">Polski</option>
+<option id=RU value="RU">Pусский</option>
+<option id=TR value="TR">Türk</option>
+<option id=CN value="CN">中文(简体)</option>
+<option id=TW value="TW">中文(繁體)</option>
+</select>
+<input type ="button" id="Change_button" onclick="javascript:lang_change();" value="OK" ></input>
+</form>           
+        </td>
+      </tr>
+</table>
+
+<table   border=0   cellpadding=0   cellspacing=0   width=100%   height=100%> 
+<tr> <td   width=100%   align="center"   valign="middle"> 
+<table width="215" border="0" align="center" cellpadding="10" cellspacing="0" >
+      <tr>
+        <td align="center"><div class="footer" id=msg></div></td>
+      </tr>
+</table>
+<table width="215" border="0" align="center" cellpadding="10" cellspacing="0" >
+  <tr>
+    <td background="images/pop-up-07.jpg"><table width="215" border="0" cellspacing="0" cellpadding="3">
+      <tr>
+        <td align="right" class="dingbat" id="LoID1">Login ID:</td>
+        <td class="dingbat"><input name="LID" type="text" class="sidebarFooter" id="LID" maxlength="32" /></td>
+      </tr>
+      <tr>
+        <td align="right" class="dingbat" id="LoPW1">Password:</td>
+        <td class="dingbat"><input name="PWD" type="password" class="sidebarFooter" id="PWD" maxlength="63" /></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><form name="form1"  onsubmit="makeRequest();">
+          <label>
+            <input type="reset" name="button" id="button" value="Cancel" />
+          </label>
+          <input type ="button" id="button_log" onclick="javascript:makeRequest();" value="LOGIN" ></input>
+        </form></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</td> </tr>
+</table> 
+</body>
+</html>

@@ -1,0 +1,20 @@
+# vim:enc=utf-8:nu:ai:si:et:ts=4:sw=4:ft=udevrules:
+#
+# /etc/udev/rules.d/10-my-media-automount.rules
+
+# start at sdb to ignore the system hard drive
+KERNEL!="sd[a-z][1-9]", GOTO="my_media_automount_end"
+
+#ACTION=="add", PROGRAM!="/sbin/blkid %N", GOTO="my_media_automount_end"
+
+# get the label if present, otherwise assign one based on device/partition
+ENV{ID_FS_LABEL}!="", ENV{dir_name}="%E{ID_FS_LABEL}"
+ENV{ID_FS_LABEL}=="", ENV{dir_name}="%k"
+
+# auto mount file system
+ACTION=="add", RUN+="/sbin/mountUSB /dev/%k '/tmp/www/ftp/%E{dir_name}'"
+# auto unmount file system
+ACTION=="remove", RUN+="/sbin/umountUSB /dev/%k"
+
+# exit
+LABEL="my_media_automount_end"

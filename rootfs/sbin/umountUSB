@@ -1,0 +1,22 @@
+#!/bin/sh
+length1=`expr length $1`
+len1=`expr $length1 - 1`
+string1=`expr substr $1 1 $len1`
+num=`expr substr $1 $length1 1`
+
+fdisk -l $string1 | grep EFI > /dev/null
+if [ `echo $?` -eq "0" ]; then
+    num=`expr $num - 1`
+fi
+    
+    
+if [ $num -ne "0" ]; then
+    killall -9 ntfs-3g
+    killall -9 vsftpd
+    killall -9 shttpd
+    folder=/tmp/www/ftp/sda$num
+    /bin/umount -f $folder > /dev/null
+    rm -rf $folder > /dev/null
+    killall -TRAP rc
+fi
+                        

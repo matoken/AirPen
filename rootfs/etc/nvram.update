@@ -1,0 +1,7 @@
+nvram_version=DLinkNAS00-10
+wan_def_mac=00:aa:bb:cc:71:69
+wan_mac=00:aa:bb:cc:71:69
+hd1=/dev/sda
+hd2=/dev/sdb
+alert_login_method=2
+alert_login_name=

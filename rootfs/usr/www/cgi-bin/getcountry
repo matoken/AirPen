@@ -1,0 +1,11 @@
+#!/bin/sh
+cfg -e > /tmp/.tmpfile
+. /tmp/.tmpfile
+
+if [ -z $COUNTRY_CODE ];then
+	echo EN
+	cfg -a COUNTRY_CODE=EN
+	cfg -c
+else
+	echo $COUNTRY_CODE
+fi	 
